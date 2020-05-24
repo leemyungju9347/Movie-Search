@@ -1,38 +1,43 @@
 <template>
-    <div v-bind="check()">
-        <div>{{ movieArr }}</div>
-        <div>{{ this.$store.state.title }}</div>
-        <button @click="check">버튼</button>
-    </div>
+<div v-if="movieList">
+    <ul v-for="(item,index) in movieList" :key="index">
+        <li>
+            <strong>{{ item.title.replace(/!HS|!HE|/gi,'') }}</strong>
+            <img :src="item.posters" alt="">
+        </li>
+    </ul>
+</div>
 </template>
 
 <script>
-// import {movieSchApi} from '../api/index'
-import { eventBus } from '../main.js'
 export default {
     data() {
         return {
-            movies:'',
-            title:''
+            title:this.$store.state.title,
+            movieTitle:''
         }
     },
     computed:{
         //SearchInput에 입력한 값을 store에 저장하고 MovieDetail로 가져올 경우 movieDetail에서 확인이 안됨.. 왜일까?
-        movieArr(){
-            return this.$store.state.title
-        }
+        movieList(){
+            return this.$store.state.list
+        },
+        // movieResult(){
+        //     return this.$store.state.list.Data[0].Result
+        // }
+    },
+    created(){
+        this.$store.dispatch('FETCH_LIST',this.title)
+
+        this.delete()
+    },
+    watch:{
     },
     methods:{
-        check(){
-            //console.log(this.$store.state.list);
-            //console.log(this.$store.state.title);
-            eventBus.$on('inputTitle',title=>{
-                this.title = title
-                console.log(this.title);
-                
-            })
-
-            console.log(this.title);
+        delete(){
+            // console.log(this.movieList[0].title);
+            console.log(this.movieList[0].title);
+            
             
         }
     }

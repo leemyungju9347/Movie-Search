@@ -7,15 +7,11 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     list:[],
-    movie:'',
     title:''
   },
   mutations: {
     set_list(state,list){
-      state.list = list
-    },
-    set_movie(state,movie){
-      state.movie = movie
+      state.list = list.Data[0].Result
     },
     set_title(state,title){
       state.title = title
@@ -27,8 +23,7 @@ export default new Vuex.Store({
       return movieSchApi(title)
       .then(res =>{
           context.commit('set_list',res.data)
-          
-          
+
           return res
       })
       .catch(err=>{
