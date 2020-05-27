@@ -32,7 +32,7 @@ export default {
         },
         {
           text: '감독',
-          value: 'actor',
+          value: 'director',
         },
         {
           text: '키워드',

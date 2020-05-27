@@ -13,17 +13,16 @@
 export default {
   data() {
     return {
-      movieTitle: this.$store.state.title,
+      inputValue: this.$store.state.inputValue,
     };
   },
   computed: {
-    //SearchInput에 입력한 값을 store에 저장하고 MovieDetail로 가져올 경우 movieDetail에서 확인이 안됨.. 왜일까?
     movieList() {
       return this.$store.state.movieList;
     },
   },
   created() {
-    this.$store.dispatch('FETCH_LIST', this.movieTitle);
+    this.$store.dispatch('FETCH_LIST', this.inputValue);
   },
   methods: {},
 };
