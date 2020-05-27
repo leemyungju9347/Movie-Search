@@ -4,9 +4,10 @@
       <option
         v-for="(option, index) in options"
         :key="index"
-        :value="option.text"
+        :value="option.value"
         >{{ option.text }}</option
       >
+      <input type="text" />
     </select>
     <input
       type="text"
@@ -24,18 +25,19 @@ export default {
   data() {
     return {
       inputValue: '',
-      selected: '제목',
+      title: '',
+      selected: 'title',
       options: [
         {
-          text: '제목',
+          text: 'Title',
           value: 'title',
         },
         {
-          text: '감독',
+          text: 'Director',
           value: 'director',
         },
         {
-          text: '키워드',
+          text: 'Keyword',
           value: 'keyword',
         },
       ],
@@ -43,9 +45,7 @@ export default {
   },
   computed: {
     placeholder() {
-      return this.selected == '키워드'
-        ? this.selected + '를 입력해주세요.'
-        : this.selected + '을 입력해주세요.';
+      return `Please enter a ${this.selected}`;
     },
   },
   methods: {
@@ -54,7 +54,6 @@ export default {
       if (this.inputValue) {
         // store에 inputValue 저장
         this.$store.commit('set_title', this.inputValue);
-        console.log(this.inputValue);
 
         //선택된 option 보내기
         this.$store.commit('set_option', this.selected);
