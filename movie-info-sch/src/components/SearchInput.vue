@@ -9,13 +9,7 @@
       >
       <input type="text" />
     </select>
-    <input
-      type="text"
-      name=""
-      id=""
-      v-model="inputValue"
-      :placeholder="placeholder"
-    />
+    <input type="text" v-model="inputValue" :placeholder="placeholder" />
     <button type="submit">검색</button>
   </form>
 </template>
