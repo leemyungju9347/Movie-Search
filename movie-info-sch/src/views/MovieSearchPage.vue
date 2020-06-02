@@ -1,13 +1,13 @@
 <template>
   <div>
-    <SearchInput></SearchInput>
+    <MovieSearchForm></MovieSearchForm>
   </div>
 </template>
 
 <script>
-import SearchInput from '@/components/SearchInput.vue';
+import MovieSearchForm from '@/components/MovieSearchForm.vue';
 export default {
-  components: { SearchInput },
+  components: { MovieSearchForm },
   data() {
     return {};
   },

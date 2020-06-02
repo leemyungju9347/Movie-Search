@@ -19,9 +19,12 @@ form > input{width:500px;border-radius: 40px;padding:10px;}
     left: 0;right: 0;height: 90px;}
 .main_logo{position: absolute;top:50%;transform:translate(-50%,-50%);left: 50%;}
 
+/*----router-area----*/
+.router-area{padding-top: 150px;}
+
 
 /*----MovieDetail----*/
-.contents{width:95%;margin: 0 auto;max-width: 1350px;padding-top:150px;}
+.contents{width:95%;margin: 0 auto;max-width: 1350px;}
 .movie-wrapper{}
 .movie-wrapper:after{content: ''; clear: both;display: block;}
 .movie-wrapper > .movie-list{
@@ -84,7 +87,7 @@ form > input{width:500px;border-radius: 40px;padding:10px;}
 .movie-wrapper > .movie-list > .poster-wrapper > img{width: 100%;}
 .movie-wrapper > .movie-list > .txt-box >  span{font-size: 11px; 
     color: #666; }
-.movie-wrapper > .movie-list > .txt-box > .eng-title{   
+.eng-title{   
     white-space: nowrap;
     display: block;
     width:calc(100% - 80px);
@@ -108,4 +111,13 @@ form > input{width:500px;border-radius: 40px;padding:10px;}
     background-color: #fff;
     opacity: 0.8;
     color: #555;
+}
+
+
+.actor-list{display: inline;}
+.actor-list > a:after{
+    content: ', ';
+}
+.actor-list:last-child > a:after{
+    content: '';
 }

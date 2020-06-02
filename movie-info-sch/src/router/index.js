@@ -1,22 +1,29 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import MovieDetailPage from '../views/MovieDetailPage.vue';
-import MovieSearchPage from '../views/MovieSearchPage.vue';
 Vue.use(VueRouter);
 
 export default new VueRouter({
+  mode: 'history',
   routes: [
     {
       path: '/',
-      component: MovieSearchPage,
+      redirect: '/search',
     },
     {
       path: '/search',
-      component: MovieSearchPage,
+      component: () => import('@/views/MovieSearchPage.vue'),
     },
     {
-      path: '/movie',
-      component: MovieDetailPage,
+      path: '/movieList',
+      component: () => import('@/views/MovieListPage.vue'),
+    },
+    {
+      path: '/movieInfo',
+      component: () => import('@/views/MovieDetailInfoPage.vue'),
+    },
+    {
+      path: '*',
+      component: () => import('@/views/NotFoundPage.vue'),
     },
   ],
 });

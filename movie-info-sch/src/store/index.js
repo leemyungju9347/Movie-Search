@@ -6,19 +6,29 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    //Output
     movieList: [],
+    //Input
     inputValue: '',
     option: '',
+    //Detail
+    deepItem: [],
   },
   mutations: {
+    // Movie List Page
     set_list(state, movieList) {
       state.movieList = movieList.Data[0].Result;
     },
+    //Movie Search Form Page
     set_title(state, inputValue) {
       state.inputValue = inputValue;
     },
     set_option(state, option) {
       state.option = option;
+    },
+    // Movie Detail Info Page
+    set_deepItem(state, deepItem) {
+      state.deepItem = deepItem;
     },
   },
   actions: {
