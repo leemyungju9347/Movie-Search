@@ -7,6 +7,7 @@
       <div class="poster">
         <img :src="isPoster(movieItem.posters)" alt="" />
       </div>
+      <!-- 영화 정보 요약 리스트 -->
       <div class="summary-area">
         <div class="subject">
           <h3>
@@ -28,6 +29,7 @@
             }}</span>
             <span class="borderline">{{ movieItem.runtime }}분</span>
           </div>
+          <!-- 감독 -->
           <p class="director">
             <b>감독 :</b>
             <a
@@ -39,6 +41,7 @@
               {{ replaceNm(movieItem.directors.director[0].directorNm) }}
             </a>
           </p>
+          <!-- 출연진 -->
           <div class="actors-wrap">
             <b>출연 :</b>
             <ul>
@@ -109,6 +112,7 @@
         </ul>
         <p class="list-more"><a href="">더보기</a></p>
       </div>
+      <!-- 키워드 -->
       <div class="keyword" v-if="movieItem.keywords !== ''">
         <h4>키워드</h4>
         <ul>
@@ -121,6 +125,8 @@
           </li>
         </ul>
       </div>
+      <!-- 이전페이지 버튼 -->
+      <!-- <button @click="prevPage"></button> -->
     </div>
   </div>
 </template>
@@ -203,7 +209,7 @@ export default {
       this.$router.push('/movieList');
     },
     //이전 페이지로 돌아가는 동작
-    PrevBehav() {
+    prevPage() {
       this.$router.go(-1);
     },
     // 첫문장 출력하기
