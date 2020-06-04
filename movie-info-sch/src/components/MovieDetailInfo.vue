@@ -1,6 +1,6 @@
 <template>
   <div
-    class="movie-info-wrap"
+    class="contents"
     v-if="movieItem && movieItem.directors && movieItem.plots"
   >
     <div class="movie-info">
@@ -9,48 +9,46 @@
       </div>
       <div class="summary-area">
         <div class="subject">
-          <h2>
-            <strong>{{ replaceNm(movieItem.title) }}</strong>
-          </h2>
-          <strong
-            ><span class="eng-title">{{ movieItem.titleEng }}</span></strong
-          >
+          <h3>{{ replaceNm(movieItem.title) }}</h3>
+          <span class="eng-title">{{ engTitle(movieItem.titleEng) }}</span>
         </div>
         <div class="summary">
           <!-- 장르/국가 -->
           <div class="txt-list">
-            <span><b>장르 : </b>{{ movieItem.genre }} </span>
-            <span>/ {{ movieItem.nation }} </span><br />
+            <span>{{ movieItem.genre }} </span>
+            <span class="nation">{{ movieItem.nation }} </span><br />
           </div>
           <!-- 개봉일,관람등급,러닝타입 -->
           <div class="txt-list">
-            <span>{{ repRlsDate(movieItem.repRlsDate) }}개봉/</span>
-            <span>{{
+            <span>{{ repRlsDate(movieItem.repRlsDate) }} 개봉</span>
+            <span class="borderline">{{
               ratingGrade(movieItem.ratings.rating[0].ratingGrade)
             }}</span>
-            <span>{{ movieItem.runtime }}분/</span>
+            <span class="borderline">{{ movieItem.runtime }}분</span>
           </div>
           <p class="director">
+            <b>감독 :</b>
             <a
               :href="
                 `https://www.kmdb.or.kr/db/per/${movieItem.directors.director[0].directorId}`
               "
             >
-              <b>감독 :</b>
               {{ replaceNm(movieItem.directors.director[0].directorNm) }}
             </a>
           </p>
-          <ul>
-            <li
-              class="actor-list"
-              v-for="(item, index) in listsOfActors(movieItem.actors.actor)"
-              :key="index"
-            >
-              <a :href="`https://www.kmdb.or.kr/db/per/${item.actorId}`">
-                <span>{{ item.actorNm }}</span>
-              </a>
-            </li>
-          </ul>
+          <div class="actors-wrap">
+            <b>출연 :</b>
+            <ul>
+              <li
+                v-for="(item, index) in listsOfActors(movieItem.actors.actor)"
+                :key="index"
+              >
+                <a :href="`https://www.kmdb.or.kr/db/per/${item.actorId}`">
+                  <span>{{ item.actorNm }}</span>
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -58,19 +56,27 @@
       <!-- 줄거리 첫 문장 -->
       <!-- <p>{{ openingStc(movieItem.plots.plot[0].plotText) }}</p> -->
       <!-- 줄거리 -->
-      <p><b>줄거리 :</b> {{ movieItem.plots.plot[0].plotText }}</p>
+      <p class="movie-plot">{{ movieItem.plots.plot[0].plotText }}</p>
       <!-- 스틸컷 -->
-      <ul>
-        <li v-for="(item, index) in movieItem.stlls.split('|')" :key="index">
-          <img :src="item" alt="" />
-        </li>
-      </ul>
+      <div class="stills">
+        <ul class="clear">
+          <li v-for="(item, index) in movieItem.stlls.split('|')" :key="index">
+            <span :style="{ 'background-image': `url(${item})` }"></span>
+          </li>
+        </ul>
+      </div>
+      <div class="actors-detail-list"></div>
     </div>
   </div>
 </template>
 
 <script>
-import { replaceName, repRlsDateReplace, postSplit } from '@/utils/replaceItem';
+import {
+  replaceName,
+  repRlsDateReplace,
+  postSplit,
+  engTitleSplit,
+} from '@/utils/replaceItem';
 export default {
   data() {
     return {
@@ -111,6 +117,9 @@ export default {
       } else {
         return grade;
       }
+    },
+    engTitle(title) {
+      return engTitleSplit(title);
     },
     // 첫문장 출력하기
     // 문제점 : 첫문장에서 끝나는 특수문자가 일정하지 않다 지금까지 검색한 첫 문장은 마침표,괄호,느낌표 등으로 다양하게 끝나는데,

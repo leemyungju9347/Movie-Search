@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="detail-page-wrap">
     <MovieDetailInfo></MovieDetailInfo>
   </div>
 </template>

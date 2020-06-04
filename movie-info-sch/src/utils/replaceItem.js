@@ -13,8 +13,12 @@ function repRlsDateReplace(date) {
   return date.replace(/(\d{4})(\d{2})(\d{2})/g, '$1.$2.$3');
 }
 
+function engTitleSplit(title) {
+  return title.split('(')[0];
+}
+
 //포스터
 function postSplit(posters) {
   return posters.split('|')[0];
 }
-export { replaceName, repRlsDateReplace, postSplit };
+export { replaceName, repRlsDateReplace, postSplit, engTitleSplit };

@@ -15,7 +15,8 @@
         </a>
         <div class="txt-box">
           <strong class="movie-title">{{ replaceNm(item.title) }}</strong>
-          <span class="eng-title">{{ item.titleEng }}</span>
+          <!-- <span class="eng-title">{{ item.titleEng }}</span> -->
+          <span class="eng-title">{{ engTitle(item.titleEng) }}</span>
           <span class="date">{{ repRlsDate(item.repRlsDate) }}</span>
         </div>
       </li>
@@ -24,7 +25,13 @@
 </template>
 
 <script>
-import { replaceName, repRlsDateReplace, postSplit } from '@/utils/replaceItem';
+import {
+  replaceName,
+  repRlsDateReplace,
+  postSplit,
+  engTitleSplit,
+} from '@/utils/replaceItem';
+
 export default {
   data() {
     return {
@@ -54,6 +61,9 @@ export default {
     },
     isPoster(posters) {
       return posters ? postSplit(posters) : this.noPoster;
+    },
+    engTitle(title) {
+      return engTitleSplit(title);
     },
   },
 };
