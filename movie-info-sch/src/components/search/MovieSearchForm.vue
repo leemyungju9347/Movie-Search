@@ -34,6 +34,10 @@ export default {
           text: 'Keyword',
           value: 'keyword',
         },
+        {
+          text: 'Genre',
+          value: 'genre',
+        },
       ],
     };
   },
@@ -47,7 +51,7 @@ export default {
       //input값을 입력 받았을때만 처리, 빈값일 경우 버튼을 눌러도 이동하지 않음.
       if (this.inputValue) {
         // store에 inputValue 저장
-        this.$store.commit('set_title', this.inputValue);
+        this.$store.commit('set_value', this.inputValue);
 
         //선택된 option 보내기
         this.$store.commit('set_option', this.selected);

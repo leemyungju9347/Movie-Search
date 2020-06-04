@@ -15,7 +15,6 @@
         </a>
         <div class="txt-box">
           <strong class="movie-title">{{ replaceNm(item.title) }}</strong>
-          <!-- <span class="eng-title">{{ item.titleEng }}</span> -->
           <span class="eng-title">{{ engTitle(item.titleEng) }}</span>
           <span class="date">{{ repRlsDate(item.repRlsDate) }}</span>
         </div>
@@ -36,7 +35,7 @@ export default {
   data() {
     return {
       inputValue: this.$store.state.inputValue,
-      option: this.$store.state.option,
+      selected: this.$store.state.selected,
       noPoster: require('@/assets/images/noPosterimages.png'),
     };
   },
@@ -46,7 +45,7 @@ export default {
     },
   },
   created() {
-    this.$store.dispatch('FETCH_LIST', `${this.option}=${this.inputValue}`);
+    this.$store.dispatch('FETCH_LIST', `${this.selected}=${this.inputValue}`);
   },
   methods: {
     replaceNm(name) {

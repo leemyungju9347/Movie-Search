@@ -10,16 +10,16 @@ body {
 	font: inherit;
 	vertical-align: baseline;
 	background-color: #F7F7F7;
-	/* background-color: #E5E5E3; */
-	/* background-color:#EEE2D2 */
-	/* background-color: lightgray; */
 }
 
-h1,
-p,
-ul {
-	margin: 0;
-	padding: 0;
+
+h1, h2, h3, h4, h5, h6 {
+	/* font-size:1em; */
+}
+h1, h2, h3, h4, h5, h6, div, p, dl, dt, dd, ul, ol, li, form, fieldset, blockquote, address, table, 
+thead, tbody, tfoot, tr, td, caption,ul {
+	margin:0;
+	padding:0;
 }
 
 input,
@@ -43,7 +43,8 @@ button {
 	cursor: pointer;
 }
 a{
-	text-decoration: none;color: #000;
+	text-decoration: none;
+	color: #000;
 }
 *,
 *:after,

@@ -10,10 +10,10 @@
 
 /*----SearchForm----*/
 form{
-    position: absolute;
+    /* position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%); */
 }
 form > input{width:500px;border-radius: 40px;padding:10px;}
 
@@ -25,8 +25,17 @@ form > input{width:500px;border-radius: 40px;padding:10px;}
 .main_logo{position: absolute;top:50%;transform:translate(-50%,-50%);left: 50%;}
 
 /*----router-area----*/
-.router-area{padding-top: 150px;}
+.router-area{padding: 150px 0 300px;}
 
+/*----MovieSearchPage----*/
+.search-page{
+    position: absolute;
+    top: 40%;
+    left: 0;
+    width: 100%;
+    text-align: center;
+}
+.select-box{}
 
 /*----MovieListPage----*/
 .contents{
@@ -142,6 +151,7 @@ form > input{width:500px;border-radius: 40px;padding:10px;}
     float: left;
     /* width: 30%; */
     overflow: hidden;
+    box-shadow:10px 10px 20px 5px grey
 }
 .detail-page-wrap > .contents > .movie-info > .poster > img{
     width: 100%;
@@ -151,6 +161,7 @@ form > input{width:500px;border-radius: 40px;padding:10px;}
     padding:20px;
     /* width: 70%; */
     font-size: 0;
+    padding: 10px 0 0 70px;
 }
 .detail-page-wrap > .contents > .movie-info > .summary-area > .subject > h3{
     font-size: 30px;
@@ -205,20 +216,74 @@ form > input{width:500px;border-radius: 40px;padding:10px;}
 .detail-page-wrap > .contents > .movie-info > .summary-area > .summary > .actors-wrap >  ul > li:last-child > a:after{
     content: '';
 }
+.detail-page-wrap > .contents > .movie-info > .summary-area > .summary .hover:hover{
+    /* text-decoration: dimgray; */
+    /* background-color: dimgray; */
+    
+}
+.detail-page-wrap > .contents > .movie-info > .summary-area > .summary > .min-awards{padding-top:7px}
+.detail-page-wrap > .contents > .movie-info > .summary-area > .summary > .min-awards > p {padding-top: 5px;}
+
+
 .detail-page-wrap > .contents > .detail-area{width: 100%;padding:10px;}
-.detail-page-wrap > .contents > .detail-area > .movie-plot{padding: 10px;font-size:17px;}
+.detail-page-wrap > .contents > .detail-area  h4 {font-size:20px;}
+.detail-page-wrap > .contents > .detail-area  .list-more {position: absolute;right:20px;top:30px;}
+.detail-page-wrap > .contents > .detail-area .list-more > a{color: #989898;}
+
+.detail-page-wrap > .contents > .detail-area > .movie-plot{margin-top:40px;padding:20px 10px;font-size:17px;}
 .detail-page-wrap > .contents > .detail-area > .stills{
-    background-color: paleturquoise;
+    /* background-color: rosybrown; */
     margin-top:50px;
 }
 .detail-page-wrap > .contents > .detail-area > .stills > ul{
-    border: 1px solid red;
+    width: 80%;
+    margin:0 auto;
+    overflow: hidden;
+    height:400px;
 }
 .detail-page-wrap > .contents > .detail-area > .stills > ul > li{
-   
+    float: left;
+    position: relative;
+    width: 100%;
+    
 }
-.detail-page-wrap > .contents > .detail-area > .stills > ul > li > span{
-    display: block;
-    background:no-repeat 50% 50%;
-    background-size:contain;
+.detail-page-wrap > .contents > .detail-area > .stills > ul > li > img{
+    width: 100%;
+    position:absolute;
 }
+
+.detail-page-wrap > .contents > .detail-area > .actors-detail-list{
+    margin-top:40px;
+    padding: 10px;
+    width: 100%;
+    position: relative;
+    /* border-top: 2px solid rgb(152, 152, 152,0.3); */
+}
+
+.detail-page-wrap > .contents > .detail-area > .actors-detail-list > ul{margin-top: 10px;}
+.detail-page-wrap > .contents > .detail-area > .actors-detail-list > ul > li{
+    float: left;
+    width: 50%;
+    padding:5px;
+}
+.detail-page-wrap > .contents > .detail-area > .actors-detail-list > ul > li > a > .kor-nm{
+    font-size: 17px;
+}
+.detail-page-wrap > .contents > .detail-area > .actors-detail-list > ul > li > a > .eng-nm{
+    color: #666;
+    font-size: 14px;
+}
+.detail-page-wrap > .contents > .detail-area > .all-awards{
+    padding: 10px;
+    margin-top:50px;
+    position: relative;
+}
+
+.detail-page-wrap > .contents > .detail-area > .all-awards > ul {
+    margin-top: 15px;
+}
+.detail-page-wrap > .contents > .detail-area > .all-awards > ul > li {
+    margin-top: 5px;
+}
+.detail-page-wrap > .contents > .detail-area > .keyword { padding: 10px;margin-top: 50px;}
+.detail-page-wrap > .contents > .detail-area > .keyword > ul { margin-top:15px;}

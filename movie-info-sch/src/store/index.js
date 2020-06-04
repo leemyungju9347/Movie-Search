@@ -10,7 +10,7 @@ export default new Vuex.Store({
     movieList: [],
     //Input
     inputValue: '',
-    option: '',
+    selected: '',
     //Detail
     deepItem: [],
   },
@@ -20,11 +20,11 @@ export default new Vuex.Store({
       state.movieList = movieList.Data[0].Result;
     },
     //Movie Search Form Page
-    set_title(state, inputValue) {
+    set_value(state, inputValue) {
       state.inputValue = inputValue;
     },
-    set_option(state, option) {
-      state.option = option;
+    set_option(state, selected) {
+      state.selected = selected;
     },
     // Movie Detail Info Page
     set_deepItem(state, deepItem) {

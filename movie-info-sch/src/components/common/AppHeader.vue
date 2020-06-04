@@ -3,6 +3,7 @@
     <h1 class="main_logo" @click="goHome">
       <a href="" class="playfair">The Movie</a>
     </h1>
+    <!-- <button @click="prevPage">이전</button> -->
   </div>
 </template>
 
@@ -11,6 +12,9 @@ export default {
   methods: {
     goHome() {
       this.$router.push('/search');
+    },
+    prevPage() {
+      this.$router.go(-1);
     },
   },
 };
