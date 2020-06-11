@@ -125,25 +125,28 @@
           </li>
         </ul>
       </div>
-      <!-- 이전페이지 버튼 -->
-      <!-- <button @click="prevPage"></button> -->
     </div>
   </div>
 </template>
-
 <script>
 import {
   replaceName,
   repRlsDateReplace,
   postSplit,
   engTitleSplit,
-} from '@/utils/replaceItem';
+  allReplaceName,
+} from '@/utils/filters';
+
 export default {
   data() {
     return {
-      movieItem: this.$store.state.deepItem,
       noPoster: require('@/assets/images/noPosterimages.png'),
     };
+  },
+  computed: {
+    movieItem() {
+      return this.$store.state.deepItem;
+    },
   },
   created() {},
   methods: {
@@ -160,13 +163,14 @@ export default {
     listsOfActors(actors) {
       let actorsArr = [];
       const minNum = 4;
-      if (actors.length > 4) {
+      if (actors.length > minNum) {
         for (let i = 0; i < minNum; i++) {
           actorsArr.push(actors[i]);
         }
         return actorsArr;
       } else return actors;
     },
+    //detail-area 배우 리스트
     listsOfActorsPlus(actors) {
       const maxNum = 8;
       let actorsArr = [];
@@ -187,6 +191,7 @@ export default {
         return grade;
       }
     },
+    //영어 타이틀
     engTitle(title) {
       return engTitleSplit(title);
     },
@@ -212,12 +217,6 @@ export default {
     prevPage() {
       this.$router.go(-1);
     },
-    // 첫문장 출력하기
-    // 문제점 : 첫문장에서 끝나는 특수문자가 일정하지 않다 지금까지 검색한 첫 문장은 마침표,괄호,느낌표 등으로 다양하게 끝나는데,
-    // 조건을 어떻게, 예외처리는 또 어떻게 줘야할까.
-    // 지금까지 본 첫문장 패턴 : .마침표, [] or () 괄호, !느낌표 등으로 끝남
-    // openingStc(sentence) {
-    // },
   },
 };
 </script>

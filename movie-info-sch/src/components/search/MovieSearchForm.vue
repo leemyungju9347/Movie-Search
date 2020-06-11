@@ -15,6 +15,11 @@
 </template>
 
 <script>
+import {
+  saveTitleToCookie,
+  saveTypeToCookie,
+  deleteCookie,
+} from '@/utils/cookies';
 export default {
   data() {
     return {
@@ -41,6 +46,10 @@ export default {
       ],
     };
   },
+  created() {
+    deleteCookie('movie_value');
+    deleteCookie('movie_type');
+  },
   computed: {
     placeholder() {
       return `Please enter a ${this.selected}`;
@@ -51,6 +60,9 @@ export default {
       //input값을 입력 받았을때만 처리, 빈값일 경우 버튼을 눌러도 이동하지 않음.
       if (this.inputValue) {
         // store에 inputValue 저장
+        saveTypeToCookie(this.selected);
+        saveTitleToCookie(this.inputValue);
+
         this.$store.commit('set_value', this.inputValue);
 
         //선택된 option 보내기

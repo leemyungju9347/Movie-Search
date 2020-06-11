@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import { saveTitleToCookie, saveTypeToCookie } from '@/utils/cookies';
 export default {
   data() {
     return {
@@ -33,6 +34,9 @@ export default {
     selectData(selected, item) {
       this.$store.commit('set_value', item);
       this.$store.commit('set_option', selected);
+
+      saveTypeToCookie(item);
+      saveTitleToCookie(selected);
 
       this.$router.push('/movieList');
     },
