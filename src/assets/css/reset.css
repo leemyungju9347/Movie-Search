@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&display=swap');
+html,
+body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+	background-color: #F7F7F7;
+	
+}
+
+h1{font-weight: lighter;}
+h1, h2, h3, h4, h5, h6 {
+	/* font-size:1em; */
+}
+h1, h2, h3, h4, h5, h6, div, p, dl, dt, dd, ul, ol, li, form, fieldset, blockquote, address, table, 
+thead, tbody, tfoot, tr, td, caption,ul {
+	margin:0;
+	padding:0;
+}
+
+input,
+select,
+textarea {
+	border: 0;
+	padding: 0;
+	margin: 0;
+	background: transparent;
+	resize: none;
+}
+
+ul,li {
+    list-style: none;
+}
+
+button {
+	font-family: inherit;
+	font-size: 90%;
+	margin: 0;
+	cursor: pointer;
+}
+a{
+	text-decoration: none;
+	color: #000;
+}
+*,
+*:after,
+*:before {
+	box-sizing: border-box;
+	font-family: 'Noto Sans KR', sans-serif;
+}
