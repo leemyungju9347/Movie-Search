@@ -1,15 +1,14 @@
 <template>
-  <div>
-    <AppHeader class="app-header-area"></AppHeader>
-    <div class="router-area">
-      <router-view></router-view>
-    </div>
+  <div id="app">
+    <AppHeader></AppHeader>
+    <router-view class="router-area"></router-view>
   </div>
 </template>
 
 <script>
-// import AppHeader from '@/components/header/AppHeader.vue';
 import AppHeader from '@/views/AppHeader.vue';
+import { mapState } from 'vuex';
+
 export default {
   components: { AppHeader },
 };

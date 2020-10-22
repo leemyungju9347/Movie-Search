@@ -1,8 +1,15 @@
 <template>
-  <div class="header_wrap">
+  <div class="header">
     <h1 class="main_logo">
-      <router-link to="/" class="playfair">The Movie</router-link>
+      <router-link to="/">The Movie</router-link>
     </h1>
+    <span>영화 검색 서비스</span>
+    <div class="favorite-box">
+      <a href="">
+        <i class="fas fa-heart"></i>
+        내가 찜한 컨텐츠
+      </a>
+    </div>
     <!-- <button @click="prevPage">이전</button> -->
   </div>
 </template>
@@ -10,9 +17,6 @@
 <script>
 export default {
   methods: {
-    goHome() {
-      this.$router.push('/search');
-    },
     prevPage() {
       this.$router.go(-1);
     },

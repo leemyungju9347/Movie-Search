@@ -18,8 +18,9 @@
           <span class="eng-title">{{ engTitle(item.titleEng) }}</span>
           <span class="date">{{ repRlsDate(item.repRlsDate) }}</span>
         </div>
-        <button class="favor-btn" @click.prevent="favorMovie(item)">
-          좋아요
+        <button class="favor-btn" @click.prevent="favorMovie(item, index)">
+          <i class="far fa-heart unlike on"></i>
+          <i class="fas fa-heart like"></i>
         </button>
       </li>
     </ul>
@@ -46,6 +47,7 @@ export default {
       inputValue: this.$store.state.inputValue,
       selected: this.$store.state.selected,
       noPoster: require('@/assets/images/noPosterimages.png'),
+      doYouLike: true,
     };
   },
   computed: {
@@ -62,6 +64,26 @@ export default {
     );
   },
   methods: {
+    favorMovie(item, index) {
+      //클릭한 아이템을 쿠키에 저장
+      const movieSeq = `movieSeq=${item.movieSeq}`;
+      saveFavoriteToCookie(movieSeq);
+
+      // 1. 좋아요를 클릭할때마다 쿠키에 movieSeq에 저장
+      // 2. 쿠키에서 movieSeq를 읽어와서 일치하는 값이 있다면 버튼에 on
+      const vm = this;
+      const lis = this.$el.querySelectorAll('.movie-list');
+      const unLike = lis[index].querySelector('.unlike');
+      const like = lis[index].querySelector('.like');
+
+      if (unLike.classList.contains('on')) {
+        unLike.classList.remove('on');
+        like.classList.add('on');
+      } else {
+        unLike.classList.add('on');
+        like.classList.remove('on');
+      }
+    },
     replaceNm(name) {
       return replaceName(name);
     },
@@ -114,15 +136,15 @@ export default {
     engTitle(title) {
       return engTitleSplit(title);
     },
-    favorMovie(item) {
-      const movieSeq = `movieSeq=${item.movieSeq}`;
-
-      console.log(movieSeq);
-      saveFavoriteToCookie(movieSeq);
-      //클릭한 아이템을 쿠키에 저장
-    },
   },
 };
 </script>
 
-<style></style>
+<style>
+.fa-heart {
+  display: none;
+}
+.on {
+  display: block;
+}
+</style>

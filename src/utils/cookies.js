@@ -40,7 +40,9 @@ function getItemFromCookie() {
 
 //favorite movie
 function saveFavoriteToCookie(value) {
-  document.cookie = `favorite_item=${value}`;
+  const testArr = [];
+  testArr.push(value);
+  document.cookie = `favorite_item=${testArr}`;
 }
 
 function getFavoriteFromCookie() {

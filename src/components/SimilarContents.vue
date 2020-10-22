@@ -14,7 +14,6 @@
 
 <script>
 import { postSplit } from '@/utils/filters';
-import { contentsSlide } from '@/js/slide';
 export default {
   data() {
     return {

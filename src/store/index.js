@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { movieSchApi } from '@/api/index';
+import { movieSchApi, boxOfficeApi } from '@/api/index';
 import {
   getTitleFromCookie,
   getTypeFromCookie,
@@ -25,6 +25,7 @@ export default new Vuex.Store({
     keyResult: [],
     //favorite
     movieSeq: getFavoriteFromCookie() || '',
+    boxOffice: [],
   },
   mutations: {
     // Movie List Page
@@ -50,6 +51,9 @@ export default new Vuex.Store({
       state.keywordList = data;
       state.keyResult = data.Data[0].Result;
     },
+    SET_BOXOFFICE(state, data) {
+      state.boxOffice = data.boxOfficeResult.weeklyBoxOfficeList;
+    },
   },
   actions: {
     FETCH_LIST(context, value) {
@@ -68,6 +72,17 @@ export default new Vuex.Store({
         .then(res => {
           context.commit('set_keywList', res.data);
           return res;
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    FETCH_BOXOFFICE({ commit }, date) {
+      return boxOfficeApi(date)
+        .then(res => {
+          commit('SET_BOXOFFICE', res.data);
+
+          return res.data;
         })
         .catch(err => {
           console.log(err);

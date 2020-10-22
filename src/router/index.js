@@ -11,7 +11,7 @@ export default new VueRouter({
     },
     {
       path: '/search',
-      component: () => import('@/views/MovieSearchPage.vue'),
+      component: () => import('@/views/MovieMainPage.vue'),
     },
     {
       path: '/movieList',

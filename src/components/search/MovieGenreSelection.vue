@@ -1,6 +1,6 @@
 <template>
-  <div class="select-box">
-    <h4>영화 장르를 선택해주세요.</h4>
+  <div class="genre-select">
+    <h3>영화 장르별 검색</h3>
     <div class="genres-btn">
       <button
         @click="selectData('genre', item)"

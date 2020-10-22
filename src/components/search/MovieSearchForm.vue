@@ -1,17 +1,32 @@
 <template>
-  <form @submit.prevent="submitData">
-    <select v-model="selected">
-      <option
-        v-for="(option, index) in options"
-        :key="index"
-        :value="option.value"
-        >{{ option.text }}</option
-      >
-      <input type="text" />
-    </select>
-    <input type="text" v-model="inputValue" :placeholder="placeholder" />
-    <button type="submit">검색</button>
-  </form>
+  <div class="search-form">
+    <!-- <h3>Search</h3> -->
+    <h3>영화 검색</h3>
+    <form @submit.prevent="submitData">
+      <!-- <select v-model="selected">
+        <option
+          v-for="(option, index) in options"
+          :key="index"
+          :value="option.value"
+          >{{ option.text }}</option
+        >
+        <input type="text" />
+      </select> -->
+      <div class="radio-box">
+        <div
+          class="radio-list"
+          :class="item.value"
+          v-for="(item, index) in options"
+          :key="index"
+        >
+          <input type="radio" :id="item.value" name="option" />
+          <label :for="item.value"><span></span>{{ item.text }}</label>
+        </div>
+      </div>
+      <input type="text" v-model="inputValue" :placeholder="placeholder" />
+      <button type="submit"><i class="fas fa-search"></i></button>
+    </form>
+  </div>
 </template>
 
 <script>
@@ -28,19 +43,19 @@ export default {
       selected: 'title',
       options: [
         {
-          text: 'Title',
+          text: '제목',
           value: 'title',
         },
         {
-          text: 'Director',
+          text: '감독',
           value: 'director',
         },
         {
-          text: 'Keyword',
+          text: '키워드',
           value: 'keyword',
         },
         {
-          text: 'Genre',
+          text: '장르',
           value: 'genre',
         },
       ],
@@ -50,6 +65,11 @@ export default {
     deleteCookie('movie_value');
     deleteCookie('movie_type');
     deleteCookie('favorite_item');
+  },
+  mounted() {
+    const formEl = this.$el;
+    const titleRadioInput = formEl.querySelector('.radio-list.title > input');
+    titleRadioInput.checked = true;
   },
   computed: {
     placeholder() {
