@@ -1,11 +1,11 @@
 <template>
-  <div class="similar-contents contents" ref="similarCon">
+  <div class="similar-contents">
     <h4>비슷한 컨텐츠</h4>
-    <ul class="clear">
+    <ul class="similar-list">
       <li v-for="(item, index) in keyResult" :key="index">
         <a href="">
           <img :src="isPoster(item.posters)" alt="" />
-          <strong class="sim-title movie-title">{{ item.title }}</strong>
+          <strong class="sim-title">{{ item.title }}</strong>
         </a>
       </li>
     </ul>

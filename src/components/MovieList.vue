@@ -1,19 +1,21 @@
 <template>
-  <div class="contents" v-if="movieList">
-    <ul class="movie-wrapper">
-      <li class="movie-list" v-for="(item, index) in movieList" :key="index">
-        <a @click.prevent="detailInfoPage(item)" class="poster-wrapper">
+  <div class="movieList-page" v-if="movieList">
+    <ul class="movieList">
+      <li class="movie-item" v-for="(item, index) in movieList" :key="index">
+        <a @click.prevent="detailInfoPage(item)" class="simple-info">
           <img :src="isPoster(item.posters)" />
-          <div class="desc_wrap" v-if="item.posters">
-            <p class="desc">줄거리 : {{ item.plots.plot[0].plotText }}</p>
-            <span
+          <div class="txt-box" v-if="item.posters">
+            <p class="simple-plot">
+              {{ item.plots.plot[0].plotText }}
+            </p>
+            <span class="director"
               >감독 :
               {{ replaceNm(item.directors.director[0].directorNm) }}</span
             >
             <span class="more">자세히 > </span>
           </div>
         </a>
-        <div class="txt-box">
+        <div class="title-box">
           <strong class="movie-title">{{ replaceNm(item.title) }}</strong>
           <span class="eng-title">{{ engTitle(item.titleEng) }}</span>
           <span class="date">{{ repRlsDate(item.repRlsDate) }}</span>
@@ -141,10 +143,7 @@ export default {
 </script>
 
 <style>
-.fa-heart {
+.favor-btn {
   display: none;
-}
-.on {
-  display: block;
 }
 </style>

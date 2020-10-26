@@ -1,6 +1,6 @@
 <template>
   <div
-    class="contents"
+    class="info-contents"
     v-if="movieItem && movieItem.directors && movieItem.plots"
   >
     <div class="movie-info">
@@ -10,9 +10,9 @@
       <!-- 영화 정보 요약 리스트 -->
       <div class="summary-area">
         <div class="subject">
-          <h3>
+          <h4>
             <a :href="movieItem.kmdbUrl">{{ replaceNm(movieItem.title) }}</a>
-          </h3>
+          </h4>
           <span class="eng-title">{{ engTitle(movieItem.titleEng) }}</span>
         </div>
         <div class="summary">
@@ -68,13 +68,10 @@
     </div>
     <!-- 영화 상세 정보들 -->
     <div class="detail-area">
-      <!-- 줄거리 첫 문장 -->
-      <!-- <p>{{ openingStc(movieItem.plots.plot[0].plotText) }}</p> -->
-      <!-- 줄거리 -->
       <p class="movie-plot">{{ movieItem.plots.plot[0].plotText }}</p>
       <!-- 스틸컷 -->
       <div class="stills" v-if="movieItem.stlls !== ''">
-        <ul class="clear">
+        <ul>
           <li v-for="(item, index) in movieItem.stlls.split('|')" :key="index">
             <!-- <span :style="{ 'background-image': `url(${item})` }"></span> -->
             <img :src="item" alt="" />
@@ -84,7 +81,7 @@
       <!-- 전체 출연진 나열 -->
       <div class="actors-detail-list">
         <h4>출연진</h4>
-        <ul class="clear">
+        <ul>
           <li
             v-for="(people, index) in listsOfActorsPlus(movieItem.actors.actor)"
             :key="index"
