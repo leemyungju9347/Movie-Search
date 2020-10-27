@@ -1,6 +1,6 @@
 <template>
   <div class="similar-contents">
-    <h4>비슷한 컨텐츠</h4>
+    <h5>비슷한 컨텐츠</h5>
     <ul class="similar-list">
       <li v-for="(item, index) in keyResult" :key="index">
         <a href="">

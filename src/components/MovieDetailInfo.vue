@@ -11,7 +11,9 @@
       <div class="summary-area">
         <div class="subject">
           <h4>
-            <a :href="movieItem.kmdbUrl">{{ replaceNm(movieItem.title) }}</a>
+            <a target="_blank" :href="movieItem.kmdbUrl">{{
+              replaceNm(movieItem.title)
+            }}</a>
           </h4>
           <span class="eng-title">{{ engTitle(movieItem.titleEng) }}</span>
         </div>
@@ -33,12 +35,14 @@
           <p class="director">
             <b>감독 :</b>
             <a
-              class="hover"
+              target="_blank"
               :href="
                 `https://www.kmdb.or.kr/db/per/${movieItem.directors.director[0].directorId}`
               "
             >
-              {{ replaceNm(movieItem.directors.director[0].directorNm) }}
+              <span>{{
+                replaceNm(movieItem.directors.director[0].directorNm)
+              }}</span>
             </a>
           </p>
           <!-- 출연진 -->
@@ -50,7 +54,7 @@
                 :key="index"
               >
                 <a
-                  class="hover"
+                  target="_blank"
                   :href="`https://www.kmdb.or.kr/db/per/${item.actorId}`"
                 >
                   <span>{{ item.actorNm }}</span>
@@ -58,11 +62,14 @@
               </li>
             </ul>
           </div>
-          <!-- 수상내역 간단히, 더보기 링크 -->
+          <!-- 수상내역 간단히 -->
           <div v-if="movieItem.Awards1 !== ''" class="min-awards">
             <b>수상내역</b>
             <p>{{ movieAwardsEdit(movieItem.Awards1) }}</p>
           </div>
+          <button class="goSimConts-btn">
+            비슷한 컨텐츠<i class="fas fa-angle-double-right"></i>
+          </button>
         </div>
       </div>
     </div>
@@ -70,48 +77,26 @@
     <div class="detail-area">
       <p class="movie-plot">{{ movieItem.plots.plot[0].plotText }}</p>
       <!-- 스틸컷 -->
+      <!-- <span :style="{ 'background-image': `url(${item})` }"></span> -->
       <div class="stills" v-if="movieItem.stlls !== ''">
-        <ul>
-          <li v-for="(item, index) in movieItem.stlls.split('|')" :key="index">
-            <!-- <span :style="{ 'background-image': `url(${item})` }"></span> -->
-            <img :src="item" alt="" />
-          </li>
-        </ul>
-      </div>
-      <!-- 전체 출연진 나열 -->
-      <div class="actors-detail-list">
-        <h4>출연진</h4>
-        <ul>
+        <transition-group tag="ul" name="slide">
           <li
-            v-for="(people, index) in listsOfActorsPlus(movieItem.actors.actor)"
-            :key="index"
+            v-for="(item, index) in movieItem.stlls.split('|')"
+            :key="index + 0"
           >
-            <a :href="`https://www.kmdb.or.kr/db/per/${people.actorId}`">
-              <span class="kor-nm">{{ people.actorNm }}</span
-              ><br />
-              <span class="eng-nm">{{ people.actorEnNm }}</span>
-            </a>
+            <img v-show="slideIdx == index" :src="item" alt="" />
           </li>
-        </ul>
-        <p class="list-more"><a href="">더보기</a></p>
-      </div>
-      <!-- 전체 수상내역 나열 -->
-      <div class="all-awards" v-if="movieItem.Awards1 !== ''">
-        <h4>수상정보</h4>
-        <ul>
-          <li
-            v-for="(item, index) in allMovieAwards(movieItem.Awards1)"
-            :key="index"
-          >
-            <span>{{ item[0] }} : </span>
-            <span>{{ item[1] }}</span>
-          </li>
-        </ul>
-        <p class="list-more"><a href="">더보기</a></p>
+        </transition-group>
+        <button class="prev" @click="prevStill">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="next" @click="nextStill">
+          <i class="fas fa-chevron-right"></i>
+        </button>
       </div>
       <!-- 키워드 -->
-      <div class="keyword" v-if="movieItem.keywords !== ''">
-        <h4>키워드</h4>
+      <div class="keyword detailInfo-list" v-if="movieItem.keywords !== ''">
+        <h5>키워드</h5>
         <ul>
           <li
             v-for="(item, index) in movieItem.keywords.split(',')"
@@ -119,6 +104,39 @@
             :key="index"
           >
             <a href=""># {{ item }}</a>
+          </li>
+        </ul>
+      </div>
+      <!-- 전체 출연진 나열 -->
+      <div class="actors-detail-list detailInfo-list">
+        <h5>출연진</h5>
+        <!-- listsOfActorsPlus(movieItem.actors.actor) -->
+        <ul>
+          <li
+            v-for="(people, index) in listsOfActorsPlus(movieItem.actors.actor)"
+            :key="index"
+          >
+            <a
+              target="_blank"
+              :href="`https://www.kmdb.or.kr/db/per/${people.actorId}`"
+            >
+              <span class="kor-nm">{{ people.actorNm }}</span>
+              <span class="eng-nm">{{ people.actorEnNm }}</span>
+            </a>
+          </li>
+        </ul>
+        <!-- <button class="actors-more">더보기</button> -->
+      </div>
+      <!-- 전체 수상내역 나열 -->
+      <div class="all-awards detailInfo-list" v-if="movieItem.Awards1 !== ''">
+        <h5>수상정보</h5>
+        <ul>
+          <li
+            v-for="(item, index) in allMovieAwards(movieItem.Awards1)"
+            :key="index"
+          >
+            <span>{{ item[0] }} : </span>
+            <span>{{ item[1] }}</span>
           </li>
         </ul>
       </div>
@@ -138,6 +156,7 @@ export default {
   data() {
     return {
       noPoster: require('@/assets/images/noPosterimages.png'),
+      slideIdx: 0,
     };
   },
   computed: {
@@ -147,6 +166,24 @@ export default {
   },
   created() {},
   methods: {
+    prevStill() {
+      const max = this.movieItem.stlls.split('|').length;
+      const min = 0;
+      if (this.slideIdx == min) {
+        this.slideIdx = max - 1;
+      } else {
+        this.slideIdx--;
+      }
+    },
+    nextStill() {
+      const max = this.movieItem.stlls.split('|').length;
+      const min = 0;
+      if (this.slideIdx == max - 1) {
+        this.slideIdx = min;
+      } else {
+        this.slideIdx++;
+      }
+    },
     replaceNm(name) {
       return replaceName(name);
     },
@@ -169,7 +206,7 @@ export default {
     },
     //detail-area 배우 리스트
     listsOfActorsPlus(actors) {
-      const maxNum = 8;
+      const maxNum = 10;
       let actorsArr = [];
       if (actors.length < maxNum) {
         return actors;

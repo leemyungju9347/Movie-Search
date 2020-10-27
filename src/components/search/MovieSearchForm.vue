@@ -41,6 +41,7 @@ export default {
       inputValue: '',
       title: '',
       selected: 'title',
+      radioOption: '',
       options: [
         {
           text: '제목',
@@ -83,6 +84,7 @@ export default {
         // store에 inputValue 저장
         saveTypeToCookie(this.selected);
         saveTitleToCookie(this.inputValue);
+        console.log(this.radioOption);
 
         this.$store.commit('set_value', this.inputValue);
 

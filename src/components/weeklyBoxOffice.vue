@@ -11,7 +11,9 @@
           </a>
         </li>
       </ul>
-      <p v-if="boxOffice.length == 0">데이터 불러오는 중...</p>
+      <div v-if="boxOffice.length == 0">
+        <loadingSpinner></loadingSpinner>
+      </div>
       <div class="slide-btn">
         <button class="prev"><i class="fas fa-caret-up"></i></button>
         <button class="next" @click.prevent="nextSlide">
@@ -25,11 +27,13 @@
 <script>
 import { mapState } from 'vuex';
 import { init, nextSlide } from '@/assets/js/slide';
+import loadingSpinner from '@/components/common/loadingSpinner.vue';
 
 export default {
   data() {
     return {};
   },
+  components: { loadingSpinner },
   computed: {
     ...mapState(['boxOffice']),
   },
