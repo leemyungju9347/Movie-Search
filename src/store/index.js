@@ -1,65 +1,68 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import { movieSchApi, boxOfficeApi } from '@/api/index';
-import {
-  getTitleFromCookie,
-  getTypeFromCookie,
-  getFavoriteFromCookie,
-} from '@/utils/cookies';
+import { getTitleFromCookie, getOptionFromCookie } from '@/utils/cookies';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    //Output
-    movieList: [],
-    output: [],
-    //Input
+    // Input
     inputValue: getTitleFromCookie() || '',
-    selected: getTypeFromCookie() || '',
-    //Detail
-    deepItem: [],
-    //keword
+    option: getOptionFromCookie() || '',
+    // Result
+    movieResult: [],
+    movieData: [],
+    // Detail
+    detailItem: [],
+    // keword
     keyword: '',
-    keywordList: [],
+    keyData: [],
     keyResult: [],
-    //favorite
-    movieSeq: getFavoriteFromCookie() || '',
-    boxOffice: [],
+    // boxOffice
+    boxOfficeList: [],
   },
   mutations: {
-    // Movie List Page
-    set_list(state, data) {
-      state.movieList = data.Data[0].Result;
-      state.output = data;
-    },
     //Movie Search Form Page
     set_value(state, inputValue) {
       state.inputValue = inputValue;
     },
-    set_option(state, selected) {
-      state.selected = selected;
+    set_option(state, option) {
+      state.option = option;
+    },
+    // Movie List Page
+    set_movieList(state, data) {
+      state.movieResult = data.Data[0].Result;
+      state.movieData = data;
     },
     // Movie Detail Info Page
-    set_deepItem(state, deepItem) {
-      state.deepItem = deepItem;
+    set_detailItem(state, data) {
+      state.detailItem = data;
     },
+    // Keyword
     set_keyword(state, keyword) {
       state.keyword = keyword;
     },
-    set_keywList(state, data) {
-      state.keywordList = data;
+    set_keyList(state, data) {
+      state.keyData = data;
       state.keyResult = data.Data[0].Result;
     },
-    SET_BOXOFFICE(state, data) {
-      state.boxOffice = data.boxOfficeResult.weeklyBoxOfficeList;
+    // boxOffice
+    set_boxOffice(state, data) {
+      state.boxOfficeList = data.boxOfficeResult.dailyBoxOfficeList;
+    },
+    clear_data(state) {
+      state.movieResult = [];
+      state.movieData = [];
+      state.inputValue = '';
+      state.option = '';
     },
   },
   actions: {
-    FETCH_LIST(context, value) {
+    FETCH_LIST({ commit }, value) {
       return movieSchApi(value)
         .then(res => {
-          context.commit('set_list', res.data);
+          commit('set_movieList', res.data);
 
           return res;
         })
@@ -67,20 +70,21 @@ export default new Vuex.Store({
           console.log(err);
         });
     },
-    FETCH_KEYWORD(context, value) {
+    FETCH_KEYWORD({ commit }, value) {
       return movieSchApi(value)
         .then(res => {
-          context.commit('set_keywList', res.data);
+          commit('set_keyList', res.data);
           return res;
         })
         .catch(err => {
           console.log(err);
         });
     },
+    // boxOffice
     FETCH_BOXOFFICE({ commit }, date) {
       return boxOfficeApi(date)
         .then(res => {
-          commit('SET_BOXOFFICE', res.data);
+          commit('set_boxOffice', res.data);
 
           return res.data;
         })

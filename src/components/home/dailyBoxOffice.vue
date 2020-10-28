@@ -1,17 +1,21 @@
 <template>
-  <div class="weekly-boxOffice">
-    <h3>주간 박스오피스</h3>
-
+  <div class="daily-boxOffice">
+    <h3>박스오피스</h3>
     <div class="boxOffice-slide">
       <ul ref="listSlide">
-        <li v-for="(item, index) in boxOffice" :key="index" ref="slideItem">
+        <li
+          v-for="(item, index) in boxOfficeList"
+          :key="index"
+          ref="slideItem"
+          @click.prevent="clickMovie(item.movieNm)"
+        >
           <a href="">
             <span>{{ index + 1 }}.</span>
             {{ item.movieNm }}
           </a>
         </li>
       </ul>
-      <div v-if="boxOffice.length == 0">
+      <div v-if="boxOfficeList.length == 0" class="loading-wrap">
         <loadingSpinner></loadingSpinner>
       </div>
       <div class="slide-btn">
@@ -25,24 +29,20 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapActions, mapMutations } from 'vuex';
 import { init, nextSlide } from '@/assets/js/slide';
+import yesterdayFormat from '@/utils/format';
+import { saveToCookie } from '@/utils/cookies';
 import loadingSpinner from '@/components/common/loadingSpinner.vue';
 
 export default {
-  data() {
-    return {};
-  },
   components: { loadingSpinner },
   computed: {
-    ...mapState(['boxOffice']),
+    ...mapState(['boxOfficeList']),
   },
   created() {
-    this.$store.dispatch('FETCH_BOXOFFICE', '20201018');
-  },
-  mounted() {
-    // const boxOfficeSlide = this.$refs.listSlide;
-    // init(boxOfficeSlide);
+    const yesterday = this.boxOfficeDate();
+    this.FETCH_BOXOFFICE(yesterday);
   },
   beforeUpdate() {
     const boxOfficeSlide = this.$refs.listSlide;
@@ -52,8 +52,24 @@ export default {
     }, 2000);
   },
   methods: {
+    ...mapActions(['FETCH_BOXOFFICE']),
+    ...mapMutations(['set_value', 'set_option']),
     nextSlide() {
       return nextSlide();
+    },
+    boxOfficeDate() {
+      return yesterdayFormat();
+    },
+    clickMovie(item) {
+      const option = 'title';
+
+      saveToCookie('movie_option', option);
+      saveToCookie('movie_value', item);
+
+      this.set_option(option);
+      this.set_value(item);
+
+      this.$router.push('/movieList');
     },
   },
 };

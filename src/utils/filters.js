@@ -29,7 +29,6 @@ function specialCharRemove(list) {
   //const limitedNum = 2;
   if (regExp.test(list))
     return list.length > 1 ? list.split(regExp)[1] : list.split(regExp)[0];
-
   //배열로 내보낼때
   // if (regExp.test(list))
   //   return list.split(regExp).filter((value, index) => index < 2);

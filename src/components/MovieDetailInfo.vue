@@ -1,35 +1,35 @@
 <template>
   <div
     class="info-contents"
-    v-if="movieItem && movieItem.directors && movieItem.plots"
+    v-if="detailItem && detailItem.directors && detailItem.plots"
   >
     <div class="movie-info">
       <div class="poster">
-        <img :src="isPoster(movieItem.posters)" alt="" />
+        <img :src="isPoster(detailItem.posters)" alt="" />
       </div>
       <!-- 영화 정보 요약 리스트 -->
       <div class="summary-area">
         <div class="subject">
           <h4>
-            <a target="_blank" :href="movieItem.kmdbUrl">{{
-              replaceNm(movieItem.title)
+            <a target="_blank" :href="detailItem.kmdbUrl">{{
+              replaceNm(detailItem.title)
             }}</a>
           </h4>
-          <span class="eng-title">{{ engTitle(movieItem.titleEng) }}</span>
+          <span class="eng-title">{{ engTitle(detailItem.titleEng) }}</span>
         </div>
         <div class="summary">
           <!-- 장르/국가 -->
           <div class="txt-list">
-            <span>{{ movieItem.genre }} </span>
-            <span class="nation">{{ movieItem.nation }} </span><br />
+            <span>{{ detailItem.genre }} </span>
+            <span class="nation">{{ detailItem.nation }} </span><br />
           </div>
           <!-- 개봉일,관람등급,러닝타입 -->
           <div class="txt-list">
-            <span>{{ repRlsDate(movieItem.repRlsDate) }} 개봉</span>
+            <span>{{ repRlsDate(detailItem.repRlsDate) }} 개봉</span>
             <span class="borderline">{{
-              ratingGrade(movieItem.ratings.rating[0].ratingGrade)
+              ratingGrade(detailItem.ratings.rating[0].ratingGrade)
             }}</span>
-            <span class="borderline">{{ movieItem.runtime }}분</span>
+            <span class="borderline">{{ detailItem.runtime }}분</span>
           </div>
           <!-- 감독 -->
           <p class="director">
@@ -37,11 +37,11 @@
             <a
               target="_blank"
               :href="
-                `https://www.kmdb.or.kr/db/per/${movieItem.directors.director[0].directorId}`
+                `https://www.kmdb.or.kr/db/per/${detailItem.directors.director[0].directorId}`
               "
             >
               <span>{{
-                replaceNm(movieItem.directors.director[0].directorNm)
+                replaceNm(detailItem.directors.director[0].directorNm)
               }}</span>
             </a>
           </p>
@@ -50,7 +50,7 @@
             <b>출연 :</b>
             <ul>
               <li
-                v-for="(item, index) in listsOfActors(movieItem.actors.actor)"
+                v-for="(item, index) in listsOfActors(detailItem.actors.actor)"
                 :key="index"
               >
                 <a
@@ -63,9 +63,9 @@
             </ul>
           </div>
           <!-- 수상내역 간단히 -->
-          <div v-if="movieItem.Awards1 !== ''" class="min-awards">
+          <div v-if="detailItem.Awards1 !== ''" class="min-awards">
             <b>수상내역</b>
-            <p>{{ movieAwardsEdit(movieItem.Awards1) }}</p>
+            <p>{{ movieAwardsEdit(detailItem.Awards1) }}</p>
           </div>
           <button class="goSimConts-btn">
             비슷한 컨텐츠<i class="fas fa-angle-double-right"></i>
@@ -75,13 +75,13 @@
     </div>
     <!-- 영화 상세 정보들 -->
     <div class="detail-area">
-      <p class="movie-plot">{{ movieItem.plots.plot[0].plotText }}</p>
+      <p class="movie-plot">{{ detailItem.plots.plot[0].plotText }}</p>
       <!-- 스틸컷 -->
       <!-- <span :style="{ 'background-image': `url(${item})` }"></span> -->
-      <div class="stills" v-if="movieItem.stlls !== ''">
+      <div class="stills" v-if="detailItem.stlls !== ''">
         <transition-group tag="ul" name="slide">
           <li
-            v-for="(item, index) in movieItem.stlls.split('|')"
+            v-for="(item, index) in detailItem.stlls.split('|')"
             :key="index + 0"
           >
             <img v-show="slideIdx == index" :src="item" alt="" />
@@ -95,11 +95,11 @@
         </button>
       </div>
       <!-- 키워드 -->
-      <div class="keyword detailInfo-list" v-if="movieItem.keywords !== ''">
+      <div class="keyword detailInfo-list" v-if="detailItem.keywords !== ''">
         <h5>키워드</h5>
         <ul>
           <li
-            v-for="(item, index) in movieItem.keywords.split(',')"
+            v-for="(item, index) in detailItem.keywords.split(',')"
             @click.prevent="sendKeword(item)"
             :key="index"
           >
@@ -108,12 +108,16 @@
         </ul>
       </div>
       <!-- 전체 출연진 나열 -->
-      <div class="actors-detail-list detailInfo-list">
+      <div
+        class="actors-detail-list detailInfo-list"
+        v-if="detailItem.actors.actor[0].actorNm !== 0"
+      >
         <h5>출연진</h5>
-        <!-- listsOfActorsPlus(movieItem.actors.actor) -->
         <ul>
           <li
-            v-for="(people, index) in listsOfActorsPlus(movieItem.actors.actor)"
+            v-for="(people, index) in listsOfActorsPlus(
+              detailItem.actors.actor,
+            )"
             :key="index"
           >
             <a
@@ -125,14 +129,13 @@
             </a>
           </li>
         </ul>
-        <!-- <button class="actors-more">더보기</button> -->
       </div>
       <!-- 전체 수상내역 나열 -->
-      <div class="all-awards detailInfo-list" v-if="movieItem.Awards1 !== ''">
+      <div class="all-awards detailInfo-list" v-if="detailItem.Awards1 !== ''">
         <h5>수상정보</h5>
         <ul>
           <li
-            v-for="(item, index) in allMovieAwards(movieItem.Awards1)"
+            v-for="(item, index) in allMovieAwards(detailItem.Awards1)"
             :key="index"
           >
             <span>{{ item[0] }} : </span>
@@ -151,6 +154,9 @@ import {
   engTitleSplit,
   allReplaceName,
 } from '@/utils/filters';
+import { saveToCookie } from '@/utils/cookies';
+
+import { mapMutations, mapState } from 'vuex';
 
 export default {
   data() {
@@ -160,14 +166,13 @@ export default {
     };
   },
   computed: {
-    movieItem() {
-      return this.$store.state.deepItem;
-    },
+    ...mapState(['detailItem', 'mapMutations']),
   },
-  created() {},
   methods: {
+    ...mapMutations(['set_value', 'set_option']),
+    // 이전 스틸컷
     prevStill() {
-      const max = this.movieItem.stlls.split('|').length;
+      const max = this.detailItem.stlls.split('|').length;
       const min = 0;
       if (this.slideIdx == min) {
         this.slideIdx = max - 1;
@@ -175,8 +180,9 @@ export default {
         this.slideIdx--;
       }
     },
+    // 다음 스틸컷
     nextStill() {
-      const max = this.movieItem.stlls.split('|').length;
+      const max = this.detailItem.stlls.split('|').length;
       const min = 0;
       if (this.slideIdx == max - 1) {
         this.slideIdx = min;
@@ -243,8 +249,16 @@ export default {
     },
     //키워드
     sendKeword(item) {
-      this.$store.commit('set_option', 'keyword');
-      this.$store.commit('set_value', item);
+      const option = 'keyword';
+
+      // cookie 저장
+      saveToCookie('movie_option', option);
+      saveToCookie('movie_value', item);
+
+      // store 저장
+      this.set_option(option);
+      this.set_value(item);
+
       this.$router.push('/movieList');
     },
     //이전 페이지로 돌아가는 동작

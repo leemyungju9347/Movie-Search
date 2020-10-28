@@ -1,18 +1,18 @@
 <template>
   <div class="main">
-    <weeklyBoxOffice></weeklyBoxOffice>
+    <dailyBoxOffice></dailyBoxOffice>
     <MovieSearchForm></MovieSearchForm>
     <MovieGenreSelection></MovieGenreSelection>
   </div>
 </template>
 
 <script>
-import MovieSearchForm from '@/components/search/MovieSearchForm.vue';
-import MovieGenreSelection from '@/components/search/MovieGenreSelection.vue';
-import weeklyBoxOffice from '@/components/weeklyBoxOffice.vue';
+import MovieSearchForm from '@/components/home/MovieSearchForm.vue';
+import MovieGenreSelection from '@/components/home/MovieGenreSelection.vue';
+import dailyBoxOffice from '@/components/home/dailyBoxOffice.vue';
 
 export default {
-  components: { MovieSearchForm, MovieGenreSelection, weeklyBoxOffice },
+  components: { MovieSearchForm, MovieGenreSelection, dailyBoxOffice },
 };
 </script>
 

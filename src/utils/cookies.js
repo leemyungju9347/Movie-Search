@@ -1,17 +1,12 @@
 //Search Page
 
 //쿠키 저장
-//value
-function saveTitleToCookie(value) {
-  document.cookie = `movie_value=${value}`;
+function saveToCookie(type, value) {
+  document.cookie = `${type}=${value}`;
 }
 
-//type
-function saveTypeToCookie(type) {
-  document.cookie = `movie_type=${type}`;
-}
-
-//쿠키 가져오기
+// 쿠키 가져오기
+// value
 function getTitleFromCookie() {
   return document.cookie.replace(
     /(?:(?:^|.*;\s*)movie_value\s*=\s*([^;]*).*$)|^.*$/,
@@ -19,9 +14,10 @@ function getTitleFromCookie() {
   );
 }
 
-function getTypeFromCookie() {
+// option
+function getOptionFromCookie() {
   return document.cookie.replace(
-    /(?:(?:^|.*;\s*)movie_type\s*=\s*([^;]*).*$)|^.*$/,
+    /(?:(?:^|.*;\s*)movie_option\s*=\s*([^;]*).*$)|^.*$/,
     '$1',
   );
 }
@@ -57,10 +53,9 @@ function deleteCookie(value) {
 }
 
 export {
-  saveTitleToCookie,
-  saveTypeToCookie,
+  saveToCookie,
   getTitleFromCookie,
-  getTypeFromCookie,
+  getOptionFromCookie,
   deleteCookie,
   saveItemToCookie,
   getItemFromCookie,

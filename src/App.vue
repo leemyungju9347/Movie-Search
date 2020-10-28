@@ -2,16 +2,22 @@
   <div id="app">
     <AppHeader></AppHeader>
     <router-view class="router-area"></router-view>
-    <!-- <loadingSpinner></loadingSpinner> -->
+    <loadingSpinner v-if="loadingStatus"></loadingSpinner>
   </div>
 </template>
 
 <script>
 import AppHeader from '@/views/AppHeader.vue';
 import { mapState } from 'vuex';
-// import loadingSpinner from '@/components/common/loadingSpinner.vue';
+import loadingSpinner from '@/components/common/loadingSpinner.vue';
+
 export default {
-  components: { AppHeader },
+  components: { AppHeader, loadingSpinner },
+  data() {
+    return {
+      loadingStatus: false,
+    };
+  },
 };
 </script>
 

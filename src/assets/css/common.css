@@ -16,7 +16,7 @@ h3,h4 {
 
 
 .router-area {
-    padding-top:30px;
+    padding-top:40px;
 }
 
 
@@ -85,15 +85,15 @@ h3,h4 {
     position: relative;
 }
 
-/*----------- weekly-boxOffice ----------*/
-.weekly-boxOffice {
+/*----------- daily-boxOffice ----------*/
+.daily-boxOffice {
     position: absolute;
     right: 0;
-    top:30px;
+    top:35px;
     
 }
 
-.weekly-boxOffice > h3 {
+.daily-boxOffice > h3 {
     /* font-size: 2em; */
     /* text-shadow: 3px 3px #494949; */
     /* color: #59ecff; */
@@ -101,7 +101,7 @@ h3,h4 {
     
 }
 
-.weekly-boxOffice > .boxOffice-slide {
+.daily-boxOffice > .boxOffice-slide {
     /* margin-top: 30px; */
     border: 3px solid #fff;
     height: 50px;
@@ -113,66 +113,72 @@ h3,h4 {
     position: relative;
     box-shadow: 7px 9px 6px #323232f7;
     overflow: hidden;
-    margin-top: 10px;
+    margin-top: 15px;
     box-shadow: 10px 9px 9px 2px #323232bd;
+    /* margin-top: 20px;
+    box-shadow: -8px -5px 0px 2px #323232; */
 
 }
 
 
-.weekly-boxOffice > .boxOffice-slide > ul {
+.daily-boxOffice > .boxOffice-slide > ul {
     
 }
 
-.weekly-boxOffice > .boxOffice-slide > p {
+.daily-boxOffice > .boxOffice-slide > p {
     color: #fff;
 }
 
-.weekly-boxOffice > .boxOffice-slide > ul > li {
+.daily-boxOffice > .boxOffice-slide > ul > li {
     padding:0 20px;
     
 }
 
-.weekly-boxOffice > .boxOffice-slide > ul > li:nth-child(1) {
+.daily-boxOffice > .boxOffice-slide > ul > li:nth-child(1) {
 }
 
-.weekly-boxOffice > .boxOffice-slide > ul > li > a {
+.daily-boxOffice > .boxOffice-slide > ul > li > a {
     line-height: 40px;
     font-size: 1em;
     font-family: 'InfinitySans-RegularA1';
     font-weight: bold;
     display: block;
     transition: 0.3s;
+    overflow: hidden;
+    width: 335px;
+    white-space: nowrap; 
+    text-overflow: ellipsis
 }
 
-.weekly-boxOffice > .boxOffice-slide > ul > li:hover > a {
+.daily-boxOffice > .boxOffice-slide > ul > li:hover > a {
     color: #32d8d4;
 }
 
-.weekly-boxOffice > .boxOffice-slide > ul > li > a > span {
+.daily-boxOffice > .boxOffice-slide > ul > li > a > span {
     margin-right: 10px;
     
 }
 
-.weekly-boxOffice > .boxOffice-slide > .slide-btn {
+.daily-boxOffice > .boxOffice-slide > .slide-btn {
     position: absolute;
     right:10px;
-    top: 2px;
+    top: 0;
 }
 
-.weekly-boxOffice > .boxOffice-slide > .slide-btn > button {
+.daily-boxOffice > .boxOffice-slide > .slide-btn > button {
     display: block;
     padding: 0 5px;
 }
-.weekly-boxOffice > .boxOffice-slide > .slide-btn > button:hover {
+.daily-boxOffice > .boxOffice-slide > .slide-btn > button:hover {
     color: #32d8d4;
 }
 
 
-.weekly-boxOffice > .boxOffice-slide > .slide-btn > .prev {
+.daily-boxOffice > .boxOffice-slide > .slide-btn > .prev {
     margin-top:1px
 }
-.weekly-boxOffice > .boxOffice-slide > .slide-btn > .next {
-    margin-top: -3px;
+.daily-boxOffice > .boxOffice-slide > .slide-btn > .next {
+    margin-top: -6px;
 }
 
 
@@ -194,28 +200,28 @@ h3,h4 {
     margin:20px auto 0;
 }
 
-.search-form > form > .radio-box {
+.search-form > form > .option-box {
     /* border: 1px solid red; */
 }
 
-.search-form > form > .radio-box > .radio-list {
+.search-form > form > .option-box > .option-list {
     display: inline-block;
 }
 
-.search-form > form > .radio-box > .radio-list + .radio-list {
+.search-form > form > .option-box > .option-list + .option-list {
     margin-left: 25px;
 }
 
-.search-form > form > .radio-box > .radio-list > input[type="radio"] {
+.search-form > form > .option-box > .option-list > input[type="radio"] {
     display: none;
 }
 
-.search-form > form > .radio-box > .radio-list > input[type="radio"]:checked + label {
+.search-form > form > .option-box > .option-list > input[type="radio"]:checked + label {
     /* color: red; */
     color: #59ecff;
 }
 
-.search-form > form > .radio-box > .radio-list > input[type="radio"] + label > span {
+.search-form > form > .option-box > .option-list > input[type="radio"] + label > span {
     border:3px solid #fff;
     border-radius:100%;
     width: 17px;
@@ -228,7 +234,7 @@ h3,h4 {
 
 }
 
-.search-form > form > .radio-box > .radio-list > input[type="radio"] + label > span::after {
+.search-form > form > .option-box > .option-list > input[type="radio"] + label > span::after {
     content: '';
     width: 7px;
     height: 7px;
@@ -238,7 +244,7 @@ h3,h4 {
     left: 2px;
 }
 
-.search-form > form > .radio-box > .radio-list > input[type="radio"]:checked + label > span::after {
+.search-form > form > .option-box > .option-list > input[type="radio"]:checked + label > span::after {
     content: '';
     background-color: #32d8d4;
 }
@@ -248,7 +254,7 @@ h3,h4 {
     border-bottom:3px solid #fff;
     padding: 7px 10px;
     width: 400px;
-    font-size: 1.3em;
+    font-size: 1.2em;
     margin-top: 40px;
     /* text-align: center; */
 }
@@ -259,6 +265,8 @@ h3,h4 {
 
 .search-form > form > input::placeholder {
     color: #fff;
+    font-family: 'Noto Sans KR', sans-serif;
+	font-weight: bold;
 }
 
 .search-form > form > input:focus-within::placeholder {
@@ -300,7 +308,26 @@ h3,h4 {
 
 /*----------- movieList-page ----------*/
 .movieList-page {
-    /* border: 1px solid red; */
+    /* border: 1px solid blue; */
+    position: relative;
+}
+
+.movieList-page > .result-message {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.movieList-page > .result-message > span {
+    color: #32d8d4;
+}
+
+.movieList-page > .total-count {
+    position: absolute;
+    left: 0;
+    top: 28px;
+    font-size: 0.9em;
 }
 
 .movieList-page > .movieList {
@@ -308,7 +335,7 @@ h3,h4 {
     width: 100%;
     overflow-x: auto;
     overflow-y: hidden;
-    padding: 30px 0;
+    padding: 30px 0 20px;
 }
 
 .movieList-page > .movieList > .movie-item {
@@ -325,6 +352,7 @@ h3,h4 {
     margin: 0 auto;
     position: relative;
     transition: 0.4s ease-in;
+    overflow: hidden;
 }
 
 .movieList-page > .movieList > .movie-item > .simple-info:hover {
@@ -387,8 +415,6 @@ h3,h4 {
     color: #000;
 }
 
-
-
 .movieList-page > .movieList > .movie-item > .title-box {
     margin-top: 30px;
     padding: 5px;
@@ -397,6 +423,13 @@ h3,h4 {
 
 .movieList-page > .movieList > .movie-item > .title-box > * {
     display:block;
+}
+
+.movieList-page > .movieList > .movie-item > .title-box > .titleNm {
+    width:200px;
+    overflow: hidden;
+    white-space: nowrap; 
+    text-overflow: ellipsis
 }
 
 .movieList-page > .movieList > .movie-item > .title-box > .movie-title {
@@ -410,7 +443,12 @@ h3,h4 {
 
 .movieList-page > .movieList > .movie-item > .title-box > .date {
     font-size: 0.8em;
-    margin-top: 10px;
+    margin-top: 5px;
+}
+
+.movieList-page > .notFound-msg {
+    margin-top: 150px;
+    text-align: center;
 }
 
 /*----------- detail-info-page ----------*/

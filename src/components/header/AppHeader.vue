@@ -10,7 +10,6 @@
         내가 찜한 컨텐츠
       </a>
     </div>
-    <!-- <button @click="prevPage">이전</button> -->
   </div>
 </template>
 

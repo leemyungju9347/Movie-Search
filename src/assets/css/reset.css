@@ -28,7 +28,8 @@ body {
 	background-color: #000;
 	color: #fff;
 	font-family: 'InfinitySans-RegularA1';
-	/* font-family: 'Noto Sans KR', sans-serif; */
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: bold;
 	
 }
 
@@ -69,6 +70,7 @@ button {
 	font-family: 'InfinitySans-RegularA1';
 	font-weight: bold;
 	color: #fff;
+	font-family: 'Noto Sans KR', sans-serif;
 }
 
 
@@ -78,6 +80,7 @@ input {
 	font-family: 'InfinitySans-RegularA1';
 	font-weight: bold;
 	color: #fff;
+	font-family: 'Noto Sans KR', sans-serif;
 }
 
 button:focus,

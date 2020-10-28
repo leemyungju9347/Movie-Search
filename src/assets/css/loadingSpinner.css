@@ -1,16 +1,24 @@
 /*------ boxOffice-loadingSpinner-------*/
-.loading {
+.daily-boxOffice .loading-wrap > .loading {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
     color: #32d8d4;
 }
   
-.loading > i {
+.daily-boxOffice .loading-wrap > .loading > i {
     font-size: 1.6em;
     display: inline-block;
     margin-right: 10px;
     animation: loading-icon 0.6s linear 0s infinite alternate;
+}
+
+#app > .loading {
+    border: 1px solid red;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
 }
   
 @keyframes loading-icon {
