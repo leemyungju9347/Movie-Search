@@ -97,20 +97,24 @@ export default {
       return engTitleSplit(title);
     },
     detailInfoPage(item) {
+      // const keywords = item.keywords;
       const keyword = this.spcCharRemove(item.keywords);
       const genre = this.spcCharRemove(item.genre);
 
-      console.log('detailPage', genre);
+      // console.log('detailPage', genre);
+      // console.log('keywords', keywords);
 
       this.set_detailItem(item);
+      console.log(item);
 
-      let option = 'keyword';
+      let OPTION = 'keyword';
       //만약 키워드가 없다면 장르로 전달
       if (keyword) {
-        this.set_keyword(`${option}=${keyword}`);
+        this.set_keyword(`${OPTION}=${keyword}`);
+        console.log('키워드 전달', keyword);
       } else {
-        option = 'genre';
-        this.set_keyword(`${option}=${genre}`);
+        OPTION = 'genre';
+        this.set_keyword(`${OPTION}=${genre}`);
         console.log('키워드가 없어서 장르 전달', genre);
       }
       //디테일페이지로 이동

@@ -26,9 +26,21 @@ function postSplit(posters) {
 //키워드, 장르 특수문자 제거
 function specialCharRemove(list) {
   const regExp = /[\{\}\[\]\/?.,;:|\)*~`!^\-+<>@\#$%&\\\=\(\'\"]/gi;
-  //const limitedNum = 2;
-  if (regExp.test(list))
-    return list.length > 1 ? list.split(regExp)[1] : list.split(regExp)[0];
+
+  if (regExp.test(list)) {
+    const listSplit = list.split(regExp);
+    const listLen = listSplit.length;
+    const randomNum = Math.floor(Math.random() * listLen);
+
+    // console.log(listSplit);
+    // console.log(listSplit.length);
+    // console.log('랜덤넘버', randomNum);
+    // console.log('확인해보자!!!!!!!!!', listSplit[randomNum]);
+    // return list.length > 1 ? list.split(regExp)[1] : list.split(regExp)[0];
+    return listSplit[randomNum];
+    // 리스트가 하나일때
+  } else return list;
+
   //배열로 내보낼때
   // if (regExp.test(list))
   //   return list.split(regExp).filter((value, index) => index < 2);
