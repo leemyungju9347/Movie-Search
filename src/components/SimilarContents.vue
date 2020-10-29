@@ -15,6 +15,7 @@
 <script>
 import { postSplit, specialCharRemove } from '@/utils/filters';
 import { mapState, mapActions, mapMutations } from 'vuex';
+import bus from '@/utils/bus';
 
 export default {
   data() {
@@ -56,9 +57,9 @@ export default {
       // 키워드
       if (keyword) {
         OPTION = 'keyword';
-
         this.set_keyword(`${OPTION}=${keyword}`);
         this.FETCH_KEYWORD(this.keyword);
+
         // 장르
       } else {
         OPTION = 'genre';

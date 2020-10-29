@@ -144,6 +144,7 @@
         </ul>
       </div>
     </div>
+    <!-- <loadingSpinner></loadingSpinner> -->
   </div>
 </template>
 <script>
@@ -155,10 +156,12 @@ import {
   allReplaceName,
 } from '@/utils/filters';
 import { saveToCookie } from '@/utils/cookies';
-
+import bus from '@/utils/bus';
 import { mapMutations, mapState } from 'vuex';
+// import loadingSpinner from '@/components/common/loadingSpinner.vue';
 
 export default {
+  // components: { loadingSpinner },
   data() {
     return {
       noPoster: require('@/assets/images/noPosterimages.png'),

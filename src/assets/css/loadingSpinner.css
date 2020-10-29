@@ -3,7 +3,6 @@
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    color: #32d8d4;
 }
   
 .daily-boxOffice .loading-wrap > .loading > i {
@@ -13,19 +12,67 @@
     animation: loading-icon 0.6s linear 0s infinite alternate;
 }
 
+
+/*------------ app ----------*/
 #app > .loading {
-    border: 1px solid red;
     position: absolute;
+    left: 0;
+    top:0;
+    height:100%;
+    width:100%;
+    background: #000;
+    padding-top: 280px;
+    text-align: center;
+}
+
+#app > .loading > i {
+    font-size: 5.5em;
+    animation: loading-icon 0.6s linear 0s infinite alternate;
+}
+
+#app > .loading > span {
+    font-size:1.5em;
+    margin-top:10px;
+    display: block;
+    animation: colorChange 0.6s linear 0s infinite alternate;
+}
+
+#app > .detail-page-wrap + .loading {
+    /* border: 1px solid red; */
+    /* bottom: 0; */
+}
+
+#app > .detail-page-wrap + .loading > i {
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
 }
+
+#app > .detail-page-wrap + .loading > span {
+    position: fixed;
+    top: 58%;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: loading-icon 0.6s linear 0s infinite alternate;
+}
+
+
+
+
   
 @keyframes loading-icon {
     0% {
         margin-top: 0px;
+        color: #32d8d4;
     }
     100% {
         margin-top: 10px;
+        color: #fff
     }
+}
+
+@keyframes colorChange {
+    0% {color: #32d8d4;}
+    100% {color: #fff}
 }

@@ -10,6 +10,7 @@
 import AppHeader from '@/views/AppHeader.vue';
 import { mapState } from 'vuex';
 import loadingSpinner from '@/components/common/loadingSpinner.vue';
+import bus from '@/utils/bus';
 
 export default {
   components: { AppHeader, loadingSpinner },
@@ -17,6 +18,25 @@ export default {
     return {
       loadingStatus: false,
     };
+  },
+  created() {
+    bus.$on('start:spinner', this.startSpinner);
+    bus.$on('end:spinner', this.endSpinner);
+  },
+  mounted() {
+    bus.$emit('start:spinner');
+  },
+  beforeDestroy() {
+    bus.$off('start:spinner');
+    bus.$off('end:spinner');
+  },
+  methods: {
+    startSpinner() {
+      this.loadingStatus = true;
+    },
+    endSpinner() {
+      this.loadingStatus = false;
+    },
   },
 };
 </script>

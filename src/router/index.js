@@ -1,8 +1,10 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import bus from '@/utils/bus';
+
 Vue.use(VueRouter);
 
-export default new VueRouter({
+const router = new VueRouter({
   mode: 'history',
   routes: [
     {
@@ -22,10 +24,6 @@ export default new VueRouter({
       component: () => import('@/views/MovieDetailInfoPage.vue'),
     },
     {
-      path: '/favorite',
-      component: () => import('@/views/MovieFavoriteConts.vue'),
-    },
-    {
       path: '*',
       component: () => import('@/views/NotFoundPage.vue'),
     },
@@ -34,3 +32,13 @@ export default new VueRouter({
     return { x: 0, y: 0 };
   },
 });
+
+router.beforeEach((to, from, next) => {
+  bus.$emit('start:spinner');
+
+  setTimeout(() => {
+    next();
+  }, 2000);
+});
+
+export default router;

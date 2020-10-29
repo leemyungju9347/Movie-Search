@@ -51,6 +51,7 @@ import {
   saveFavoriteToCookie,
 } from '@/utils/cookies';
 import { mapState, mapActions, mapMutations } from 'vuex';
+import bus from '@/utils/bus';
 
 export default {
   data() {
@@ -100,9 +101,6 @@ export default {
       // const keywords = item.keywords;
       const keyword = this.spcCharRemove(item.keywords);
       const genre = this.spcCharRemove(item.genre);
-
-      // console.log('detailPage', genre);
-      // console.log('keywords', keywords);
 
       this.set_detailItem(item);
       console.log(item);
