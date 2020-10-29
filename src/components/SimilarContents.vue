@@ -26,15 +26,12 @@ export default {
     ...mapState(['keyResult', 'keyword', 'detailItem']),
     keyResultFilter() {
       const result = this.keyResult.filter(item => {
-        console.log(item.title);
         return item.title != this.detailItem.title;
       });
-      console.log('result!!!', result);
       return result;
     },
   },
   created() {
-    // const listCount = 'listCount=50&';
     this.FETCH_KEYWORD(this.keyword);
     window.scrollTo(0, 0);
     console.log('created');
