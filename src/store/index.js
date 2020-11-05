@@ -15,6 +15,7 @@ export default new Vuex.Store({
     movieData: [],
     // Detail
     detailItem: [],
+    detailTitle: '',
     // keword
     keyword: '',
     keyData: [],
@@ -38,6 +39,9 @@ export default new Vuex.Store({
     // Movie Detail Info Page
     set_detailItem(state, data) {
       state.detailItem = data;
+    },
+    set_detailTitle(state, title) {
+      state.detailTitle = title;
     },
     // Keyword
     set_keyword(state, keyword) {

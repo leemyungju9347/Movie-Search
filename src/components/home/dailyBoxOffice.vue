@@ -2,10 +2,11 @@
   <div class="daily-boxOffice">
     <h3>박스오피스</h3>
     <div class="boxOffice-slide">
-      <ul ref="listSlide">
+      <transition-group tag="ul" name="boxOfficeSlide">
         <li
           v-for="(item, index) in boxOfficeList"
-          :key="index"
+          v-show="slideIdx === index"
+          :key="index + 0"
           ref="slideItem"
           @click.prevent="clickMovie(item.movieNm)"
         >
@@ -14,13 +15,16 @@
             {{ item.movieNm }}
           </a>
         </li>
-      </ul>
+      </transition-group>
+      <!-- <ul ref="listSlide"></ul> -->
       <div v-if="boxOfficeList.length == 0" class="loading-wrap">
         <loadingSpinner></loadingSpinner>
       </div>
       <div class="slide-btn">
-        <button class="prev"><i class="fas fa-caret-up"></i></button>
-        <button class="next" @click.prevent="nextSlide">
+        <button class="prev" @click="prevSlideBtn">
+          <i class="fas fa-caret-up"></i>
+        </button>
+        <button class="next" @click="nextSlideBtn">
           <i class="fas fa-caret-down"></i>
         </button>
       </div>
@@ -36,24 +40,51 @@ import { saveToCookie } from '@/utils/cookies';
 import loadingSpinner from '@/components/common/loadingSpinner.vue';
 
 export default {
+  data() {
+    return {
+      slideIdx: 0,
+    };
+  },
   components: { loadingSpinner },
   computed: {
     ...mapState(['boxOfficeList']),
   },
   created() {
+    console.log('박스오피스 created');
     const yesterday = this.boxOfficeDate();
     this.FETCH_BOXOFFICE(yesterday);
+
+    setInterval(this.nextSlideBtn, 5000);
   },
   beforeUpdate() {
-    const boxOfficeSlide = this.$refs.listSlide;
-
-    setTimeout(() => {
-      init(boxOfficeSlide);
-    }, 2000);
+    // const boxOfficeSlide = this.$refs.listSlide;
+    // setTimeout(() => {
+    //   init(boxOfficeSlide);
+    // }, 2000);
   },
   methods: {
     ...mapActions(['FETCH_BOXOFFICE']),
     ...mapMutations(['set_value', 'set_option']),
+    prevSlideBtn() {
+      const maxIndex = this.boxOfficeList.length;
+      const minIndex = 0;
+
+      if (this.slideIdx === 0) {
+        this.slideIdx = maxIndex - 1;
+      } else {
+        this.slideIdx--;
+      }
+    },
+    nextSlideBtn() {
+      const maxIndex = this.boxOfficeList.length;
+      const minIndex = 0;
+
+      if (this.slideIdx === maxIndex - 1) {
+        this.slideIdx = minIndex;
+      } else {
+        this.slideIdx++;
+      }
+    },
     nextSlide() {
       return nextSlide();
     },

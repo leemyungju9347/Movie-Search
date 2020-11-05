@@ -60,7 +60,13 @@ export default {
     };
   },
   computed: {
-    ...mapState(['inputValue', 'option', 'movieResult', 'movieData']),
+    ...mapState([
+      'inputValue',
+      'option',
+      'movieResult',
+      'movieData',
+      'keyword',
+    ]),
     optionMsg() {
       return this.option == 'title'
         ? '"제목" 으로'
@@ -77,7 +83,7 @@ export default {
     this.FETCH_LIST(`${listCount}${this.option}=${this.inputValue}`);
   },
   methods: {
-    ...mapActions(['FETCH_LIST']),
+    ...mapActions(['FETCH_LIST', 'FETCH_KEYWORD']),
     ...mapMutations(['set_detailItem', 'set_keyword']),
     replaceNm(name) {
       return replaceName(name);
@@ -103,7 +109,6 @@ export default {
       const genre = this.spcCharRemove(item.genre);
 
       this.set_detailItem(item);
-      console.log(item);
 
       let OPTION = 'keyword';
       //만약 키워드가 없다면 장르로 전달

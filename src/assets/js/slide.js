@@ -11,9 +11,6 @@ function init(slideWrap) {
   slideLen = slideItem.length;
   slideHeight = 40;
 
-  console.log(slideItem);
-  console.log(slideLen);
-
   // 슬라이드 양끝 복제
   const firstSlideClone = slider.firstElementChild.cloneNode(true);
   const lastSlideClone = slider.lastElementChild.cloneNode(true);

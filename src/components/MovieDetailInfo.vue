@@ -25,14 +25,17 @@
           </div>
           <!-- 개봉일,관람등급,러닝타입 -->
           <div class="txt-list">
-            <span>{{ repRlsDate(detailItem.repRlsDate) }} 개봉</span>
+            <span>{{ repRlsDate(detailItem.regDate) }} 개봉</span>
             <span class="borderline">{{
               ratingGrade(detailItem.ratings.rating[0].ratingGrade)
             }}</span>
             <span class="borderline">{{ detailItem.runtime }}분</span>
           </div>
           <!-- 감독 -->
-          <p class="director">
+          <p
+            class="director"
+            v-if="detailItem.directors.director[0].directorNm"
+          >
             <b>감독 :</b>
             <a
               target="_blank"
@@ -67,7 +70,7 @@
             <b>수상내역</b>
             <p>{{ movieAwardsEdit(detailItem.Awards1) }}</p>
           </div>
-          <button class="goSimConts-btn">
+          <button class="goSimConts-btn" @click="goSimConts">
             비슷한 컨텐츠<i class="fas fa-angle-double-right"></i>
           </button>
         </div>
@@ -82,9 +85,10 @@
         <transition-group tag="ul" name="slide">
           <li
             v-for="(item, index) in detailItem.stlls.split('|')"
+            v-show="slideIdx == index"
             :key="index + 0"
           >
-            <img v-show="slideIdx == index" :src="item" alt="" />
+            <img :src="item" alt="" />
           </li>
         </transition-group>
         <button class="prev" @click="prevStill">
@@ -144,7 +148,6 @@
         </ul>
       </div>
     </div>
-    <!-- <loadingSpinner></loadingSpinner> -->
   </div>
 </template>
 <script>
@@ -158,26 +161,32 @@ import {
 import { saveToCookie } from '@/utils/cookies';
 import bus from '@/utils/bus';
 import { mapMutations, mapState } from 'vuex';
-// import loadingSpinner from '@/components/common/loadingSpinner.vue';
 
 export default {
-  // components: { loadingSpinner },
   data() {
     return {
       noPoster: require('@/assets/images/noPosterimages.png'),
       slideIdx: 0,
     };
   },
+  created() {
+    // const title = this.allReplaceNm(this.detailItem.title);
+    // console.log('디테일 타이틀', title);
+    // this.set_detailTitle(title);
+  },
   computed: {
-    ...mapState(['detailItem', 'mapMutations']),
+    ...mapState(['detailItem', 'mapMutations', 'detailTitle']),
   },
   methods: {
-    ...mapMutations(['set_value', 'set_option']),
+    ...mapMutations(['set_value', 'set_option', 'set_detailTitle']),
+    goSimConts() {
+      window.scrollTo({ top: 1500, left: 0, behavior: 'smooth' });
+    },
     // 이전 스틸컷
     prevStill() {
       const max = this.detailItem.stlls.split('|').length;
       const min = 0;
-      if (this.slideIdx == min) {
+      if (this.slideIdx === min) {
         this.slideIdx = max - 1;
       } else {
         this.slideIdx--;
@@ -187,7 +196,7 @@ export default {
     nextStill() {
       const max = this.detailItem.stlls.split('|').length;
       const min = 0;
-      if (this.slideIdx == max - 1) {
+      if (this.slideIdx === max - 1) {
         this.slideIdx = min;
       } else {
         this.slideIdx++;
@@ -195,6 +204,9 @@ export default {
     },
     replaceNm(name) {
       return replaceName(name);
+    },
+    allReplaceNm(name) {
+      return allReplaceName(name);
     },
     repRlsDate(date) {
       return repRlsDateReplace(date);
